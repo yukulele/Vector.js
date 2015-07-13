@@ -1,35 +1,58 @@
-class Vector {
-  coord: Array<number>;
+export default class Vector {
+  coord: number[];
   constructor(...coord) {
+    if (!(this instanceof Vector))
+      return new Vector(...coord);
     this.coord = coord;
     while (coord.length > 0 && coord[coord.length - 1] == 0)
       coord.pop();
   }
-  static polar(r: number = 0, ...ang: Array<number>): Vector {
-    let coord: Array < number > = [];
-    let sin = r;
-    let i;
-    for (i = 0; i < ang.length - 1; i++) {
-      coord.push(sin * Math.cos(ang[i]));
-      sin *= Math.sin(ang[i]);
+  [Symbol.iterator]() {
+    return this.coord[Symbol.iterator]();
+  }
+  static polar(r: number = 0, ...ang: number[]): Vector {
+    let coord: number[] = [];
+    let cos = r;
+    for (let i = ang.length - 1; i >= 0; i--) {
+      coord.unshift(cos * Math.sin(ang[i]));
+      cos *= Math.cos(ang[i]);
     }
-    coord.push(sin * Math.sin(ang[i]));
-    Math.max(...coord);
+    coord.unshift(cos);
     return new Vector(...coord);
   }
-  add(...vect:Array<Vector>): Vector {
+  polar() {
+    let ret: number[] = [];
+    let a: number = null;
+    let first = true;
+    let y;
+    for (let x, i = 1; i < this.coord.length; i++) {
+      x = this.coord[i - 1];
+      y = this.coord[i];
+      if (a === null) {
+        ret.push(Math.atan2(y, x));
+        a = x * x;
+      }
+      else {
+        ret.push(Math.atan2(y, Math.sqrt(a)));
+      }
+      a += y * y;
+    }
+    ret.unshift(Math.sqrt(a));
+    return ret;
+  }
+  add(...vect: Vector[]): Vector {
     vect.push(this);
     let coord = [];
-    let len = Math.max(...vect.map(v => v.coord.length));
+    let len = Math.max(...vect.map(v=> v.coord.length));
     for (var i = 0; i < len; i++)
-      coord[i] = vect.map(v => v.coord[i] || 0).reduce((a, b) => a + b);
+      coord[i] = vect.map(v=> v.coord[i] || 0).reduce((a, b) => a + b);
     return new Vector(...coord);
   }
   sub(v2: Vector): Vector {
     return this.add(v2.inv());
   }
   mul(a: number): Vector {
-    return new Vector(...this.coord.map(c => c * a));
+    return new Vector(...this.coord.map(c=> c * a));
   }
   div(a: number): Vector {
     return this.mul(1 / a);
@@ -40,11 +63,12 @@ class Vector {
   mix(v, a): Vector {
     return this.mul(1 - a).add(v.mul(a));
   }
-  len(a: number = null): Vector | number {
-    var len = Math.hypot(...this.coord);
-    if (a === null)
-      return len;
-    return this.mul(a / len);
+  len(): number;
+  len(a: number): Vector;
+  len(a?: number): any {
+    if (a === void 0)
+      return Math.hypot(...this.coord);
+    return this.mul(a / this.len());
   }
   norm() {
     return this.len(1);
@@ -55,25 +79,12 @@ class Vector {
   dot(...vect) {
     vect.push(this);
     let coord = [];
-    let len = Math.max(...vect.map(v => v.coord.length));
+    let len = Math.max(...vect.map(v=> v.coord.length));
     for (var i = 0; i < len; i++)
-      coord[i] = vect.map(v => v.coord[i] || 0).reduce((a, b) => a * b);
+      coord[i] = vect.map(v=> v.coord[i] || 0).reduce((a, b) => a * b);
     return coord.reduce((a, b) => a + b);
   }
-  polar() {
-    let ret = [];
-    let a = 0;
-    let first = true;
-    for (let i = this.coord.length - 1; i >= 0; i--) {
-      let c = this.coord[i];
-      a += c * c;
-      ret.unshift(Math.acos(c / Math.sqrt(a)));
-      if (first) {
-        first = false;
-        ret[0] = Math.PI * 2 - ret[0];
-      }
-    }
-    ret.unshift(a);
-    return ret;
+  volume() {
+    return this.coord.reduce((a, b) => a * a);
   }
 }
