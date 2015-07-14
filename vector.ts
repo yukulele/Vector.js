@@ -1,4 +1,4 @@
-export default class Vector {
+class Vector {
   coord: number[];
   constructor(...coord) {
     if (!(this instanceof Vector))
