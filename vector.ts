@@ -11,7 +11,7 @@ class Vector {
     return this.coord[Symbol.iterator]();
   }
   static polar(r: number = 0, ...ang: number[]): Vector {
-    let coord: number[] = [];
+    const coord: number[] = [];
     let cos = r;
     for (let i = ang.length - 1; i >= 0; i--) {
       coord.unshift(cos * Math.sin(ang[i]));
@@ -21,7 +21,7 @@ class Vector {
     return new Vector(...coord);
   }
   polar() {
-    let ret: number[] = [];
+    const ret: number[] = [];
     let a: number = null;
     let first = true;
     let y;
@@ -42,9 +42,9 @@ class Vector {
   }
   add(...vect: Vector[]): Vector {
     vect.push(this);
-    let coord = [];
-    let len = Math.max(...vect.map(v=> v.coord.length));
-    for (var i = 0; i < len; i++)
+    const coord = [];
+    const  len = Math.max(...vect.map(v=> v.coord.length));
+    for (let i = 0; i < len; i++)
       coord[i] = vect.map(v=> v.coord[i] || 0).reduce((a, b) => a + b);
     return new Vector(...coord);
   }
@@ -78,9 +78,9 @@ class Vector {
   }
   dot(...vect) {
     vect.push(this);
-    let coord = [];
-    let len = Math.max(...vect.map(v=> v.coord.length));
-    for (var i = 0; i < len; i++)
+    const coord = [];
+    const len = Math.max(...vect.map(v=> v.coord.length));
+    for (let i = 0; i < len; i++)
       coord[i] = vect.map(v=> v.coord[i] || 0).reduce((a, b) => a * b);
     return coord.reduce((a, b) => a + b);
   }
