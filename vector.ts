@@ -24,10 +24,9 @@ class Vector {
     const ret: number[] = [];
     let a: number = null;
     let first = true;
-    let y;
-    for (let x, i = 1; i < this.coord.length; i++) {
-      x = this.coord[i - 1];
-      y = this.coord[i];
+    for (let i = 1; i < this.coord.length; i++) {
+      const x = this.coord[i - 1];
+      const y = this.coord[i];
       if (a === null) {
         ret.push(Math.atan2(y, x));
         a = x * x;
