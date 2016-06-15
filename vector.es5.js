@@ -124,5 +124,4 @@ var Vector = (function() {
   };
   return Vector;
 })();
-exports.default = Vector;
 //# sourceMappingURL=vector.js.map
