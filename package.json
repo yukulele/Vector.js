@@ -1,0 +1,27 @@
+{
+  "name": "ndvector",
+  "version": "1.0.3",
+  "description": "nD vector javascript library",
+  "main": "vector.js",
+  "types": "vector.d.ts",
+  "homepage": "https://github.com/yukulele/Vector.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yukulele/Vector.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yukulele/Vector.js/issues"
+  },
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "postinstall": "npm run build"
+  },
+  "dependencies": {
+    "typescript": "^3.8.3"
+  },
+  "prettier": {
+    "semi": false
+  },
+  "license": "ISC"
+}

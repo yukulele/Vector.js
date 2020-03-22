@@ -1,9 +1,9 @@
-class Vector {
-  coord: number[]
-  constructor(...coord) {
+export default class Vector {
+  coord!: number[]
+  constructor(...coord: number[]) {
     if (!(this instanceof Vector)) return new Vector(...coord)
     this.coord = coord
-    while (coord.length > 0 && coord[coord.length - 1] == 0) coord.pop()
+    while (coord.length > 0 && coord[coord.length - 1] === 0) coord.pop()
   }
   [Symbol.iterator]() {
     return this.coord[Symbol.iterator]()
@@ -20,12 +20,11 @@ class Vector {
   }
   polar(): number[] {
     const ret: number[] = []
-    let a: number = null
-    let first = true
+    let a = 0
     for (let i = 1; i < this.coord.length; i++) {
-      const x = this.coord[i - 1]
       const y = this.coord[i]
-      if (a === null) {
+      if (i === 1) {
+        const x = this.coord[i - 1]
         ret.push(Math.atan2(y, x))
         a = x * x
       } else {
@@ -56,22 +55,22 @@ class Vector {
   inv(): Vector {
     return this.mul(-1)
   }
-  mix(v, a): Vector {
+  mix(v: Vector, a = 0.5): Vector {
     return this.mul(1 - a).add(v.mul(a))
   }
   len(): number
   len(a: number): Vector
   len(a?: number): number | Vector {
-    if (a === void 0) return Math.hypot(...this.coord)
+    if (a == null) return Math.hypot(...this.coord)
     return this.mul(a / this.len())
   }
   norm(): Vector {
     return this.len(1)
   }
-  dist(v): number {
+  dist(v: Vector): number {
     return this.sub(v).len()
   }
-  dot(...vect): number {
+  dot(...vect: Vector[]): number {
     vect.push(this)
     const coord = []
     const len = Math.max(...vect.map(v => v.coord.length))
