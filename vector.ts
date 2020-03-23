@@ -35,6 +35,9 @@ export default class Vector {
     ret.unshift(Math.sqrt(a))
     return ret
   }
+  equal(v2: Vector) {
+    return this.dist(v2) === 0
+  }
   add(...vect: Vector[]): Vector {
     vect.push(this)
     const coord = []
