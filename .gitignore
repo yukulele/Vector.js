@@ -1,3 +1,5 @@
 /node_modules/
+/cjs/
+/mjs/
 /vector.js
 /vector.d.ts

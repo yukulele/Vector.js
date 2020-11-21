@@ -1,6 +1,12 @@
 # Vector.js
 nD vector javascript library
 
+## install
+
+```shell
+npm i ndvector
+```
+
 ## reference
 
 ```typescript
