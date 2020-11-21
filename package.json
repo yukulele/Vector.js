@@ -1,6 +1,6 @@
 {
   "name": "ndvector",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "nD vector javascript library",
   "main": "cjs/vector.js",
   "types": "cjs/vector.d.ts",
@@ -22,7 +22,7 @@
     "build": "tsc -p tsconfig.mjs.json && tsc -p tsconfig.cjs.json",
     "prepublish": "npm run build"
   },
-  "dependencies": {
+  "devDependencies": {
     "typescript": "^4.1.2"
   },
   "prettier": {
