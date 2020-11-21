@@ -1,12 +1,12 @@
 {
   "name": "ndvector",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "nD vector javascript library",
   "main": "cjs/vector.js",
   "types": "cjs/vector.d.ts",
   "module": "mjs/vector.js",
   "files": [
-    "vector.js",
+    "vector.ts",
     "cjs",
     "mjs"
   ],
