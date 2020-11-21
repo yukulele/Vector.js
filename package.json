@@ -1,6 +1,6 @@
 {
   "name": "ndvector",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "nD vector javascript library",
   "main": "cjs/vector.js",
   "types": "cjs/vector.d.ts",
@@ -19,12 +19,11 @@
     "url": "https://github.com/yukulele/Vector.js/issues"
   },
   "scripts": {
-    "build": "npx tsc -p tsconfig.mjs.json && npx tsc -p tsconfig.cjs.json",
-    "postinstall": "npm run build",
+    "build": "tsc -p tsconfig.mjs.json && tsc -p tsconfig.cjs.json",
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "typescript": "^3.8.3"
+    "typescript": "^4.1.2"
   },
   "prettier": {
     "semi": false
